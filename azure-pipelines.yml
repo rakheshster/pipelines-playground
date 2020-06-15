@@ -15,8 +15,8 @@ steps:
   inputs:
     azureSubscription: 'rakhesh.com Trial(6d55c48d-06cf-45e0-b163-110b2f8bab79)'
     scriptType: 'bash'
-    scriptLocation: 'scriptPath'
-    scriptPath: 'az'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az account show'
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
