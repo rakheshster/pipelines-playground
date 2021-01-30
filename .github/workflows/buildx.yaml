@@ -15,10 +15,6 @@ on:
         description: 'Input2'
         required: false
         default: '2'
-    outputs:
-      output1:
-        description: 'Output1'
-        value: ${{ steps.create_output.outputs.workflow-name }}
 
 # And what jobs it has
 jobs:
