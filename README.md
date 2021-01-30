@@ -1,2 +1,2 @@
-# Playground
-Just a test repo
+# playground
+just a test repo
