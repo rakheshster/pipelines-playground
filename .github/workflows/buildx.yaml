@@ -6,16 +6,15 @@ on:
   workflow_dispatch:
 # I am commenting this stuff out as I don't use it any more. I now pull in the info via a JSON file.
 # I wanted to leave this behind however for future reference.
-
-inputs:
-  input1:
-    description: 'Input1'
-    required: true
-    default: '1'
-  input2:
-    description: 'Input2'
-    required: false
-    default: '2'
+    inputs:
+      input1:
+        description: 'Input1'
+        required: true
+        default: '1'
+      input2:
+        description: 'Input2'
+        required: false
+        default: '2'
 
 outputs:
   output1:
