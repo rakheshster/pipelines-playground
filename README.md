@@ -1,2 +1,3 @@
-# playground
-just a test repo
+# Pipelines Playground
+
+A safe place to play :o)
