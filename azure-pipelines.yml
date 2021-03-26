@@ -24,8 +24,8 @@ jobs:
   pool: 
     vmImage: ${{ parameters.image }}
   steps:
-  - pwsh: Write-Host "You entered $($env:ADMINKEY)"
+  - pwsh: Write-Host "You entered $($env:ADMINKEY) && $env:addressSpace"
     displayName: Update ARM template parameters file
     env: 
-      adminKey: $(adminKey)
-      addrSpace: $(addrSpace)
+      adminKey: ${{ parameters.adminKey }}
+      addrSpace: ${{ parameters.addressSpace }}
