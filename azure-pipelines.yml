@@ -1,31 +1,30 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# I'd like to run this manually
+trigger: none
 
-trigger:
-- master
+- name: image
+  displayName: Pool Image
+  type: string
+  default: ubuntu-latest
+  values:
+  - ubuntu-latest
+  - ubuntu-20.04
+- name: adminKey
+  displayName: SSH Key for admin user
+  type: string
+  default: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvd7m/4NgGLkAV6GUUTsl6Tfx0NwGDDWK4JM0eiXX5yOvJ63tVbyeMO6I7LZTjSVo2Ah9LpIOmixQSLbdOd6fIwj6s4tmHu9X9R3KvJ1JE4VApbFprOAaBFTo1lESoZ9ch3X2UaCYMl/sGO7ky22fusho7UUZn+cWlX34y+fhtggeJVrG8SzftyuqgRT27GTEE6oyYJZXsPTVah74yEPWHBMt4n5qcnTkfIkCSy3eqyYNypesRR4ArYv3lyiHAL9NGNDr1iXpl4/RiEy9vTQepXN0UUOmfIKo1nj5p4E2f+CHf2eYmMUqDB0xJInK0cTUml9m2X/VTq6aTnVF2VOXLGkluvLUqdLkcLHfYC+xHF47tKlvuWKiQwzvDViUoNlIW5ai8cIt7Pk9HUWHZ5+Xf+sk+VnZfELYnnAc2xMFJxFFqssVINW2tm0eQIeV9iWrymlHNWj0h23eb0oTM2uJ8s/+tg4MtQcAbOPePj2bfats8fa27TXdGup/zZXlJvac= rakhesh
+- name: addressSpace
+  displayName: Address space (also used as subnet) of the TailScale VM vnet
+  type: string
+  default: 192.168.64.0/24
 
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-      echo 'Hello world'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'rakhesh.com Trial(6d55c48d-06cf-45e0-b163-110b2f8bab79)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az account show'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+jobs:
+- job: deploy
+  displayName: Deploy to Azure
+  pool: 
+    vmImage: ${{ parameters.image }}
+  steps:
+  - pwsh: Write-Host "You entered $env:adminKey"
+    displayName: Update ARM template parameters file
+    env: 
+      $adminKey: $(adminKey)
+      $addrSpace: $(addrSpace)
