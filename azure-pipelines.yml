@@ -18,14 +18,18 @@ parameters:
   type: string
   default: 192.168.64.0/24
 
+variables:
+- name: one
+  value: ${{ parameters.adminKey }}
+
 jobs:
 - job: deploy
   displayName: Deploy to Azure
   pool: 
     vmImage: ${{ parameters.image }}
   steps:
-  - pwsh: Write-Host "You entered ${{ parameters.adminKey }} && ${{ parameters.addressSpace }}"
+  - pwsh: Write-Host "You entered ${{ variables.one }} && $($env:ADMINKEY)"
     displayName: Update ARM template parameters file
     env: 
-      adminKey: ${{ parameters.adminKey }}
+      adminKey: $(one)
       addrSpace: ${{ parameters.addressSpace }}
