@@ -1,6 +1,7 @@
 # I'd like to run this manually
 trigger: none
 
+parameters:
 - name: image
   displayName: Pool Image
   type: string
