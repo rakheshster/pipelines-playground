@@ -27,5 +27,5 @@ jobs:
   - pwsh: Write-Host "You entered $adminKey"
     displayName: Update ARM template parameters file
     env: 
-      $adminKey: $(adminKey)
-      $addrSpace: $(addrSpace)
+      adminKey: $(adminKey)
+      addrSpace: $(addrSpace)
