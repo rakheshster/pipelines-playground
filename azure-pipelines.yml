@@ -23,8 +23,11 @@ jobs:
   pool: 
     vmImage: ${{ parameters.image }}
   steps:
-  - pwsh: Write-Host "You entered $env:adminKey"
+  - pwsh: |
+      Write-Host "You entered ${{ parameters.adminKey }}" ;
+      $file = Get-Content ./cloud-init.txt ;
+      $file -replace "__REPLACEKEY__","{{ parameters.tailscaleKey }}" ;
+      $file -replace "__REPLACEROUTES__","{{ parameters.tailscaleRoutes }}"
+      $file | Set-Content ./cloud-init ;
+      Get-Content ./cloud-ini
     displayName: Update ARM template parameters file
-    env: 
-      $adminKey: $(adminKey)
-      $addrSpace: $(addrSpace)
