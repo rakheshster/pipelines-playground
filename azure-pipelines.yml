@@ -23,9 +23,6 @@ jobs:
     vmImage: ${{ parameters.image }}
   steps:
   - pwsh: |
-      Get-Content ./cloud-init.txt ;
-      $file = $file -replace "__REPLACEKEY__","${{ parameters.tailscaleKey }}" ;
-      $file = $file -replace "__REPLACEROUTES__","${{ parameters.tailscaleRoutes }}"
-      $file | Set-Content ./cloud-init.txt ;
+      $(Get-Content ./cloud-init.txt) -replace "__REPLACEKEY__","${{ parameters.tailscaleKey }}" -replace "__REPLACEROUTES__","${{ parameters.tailscaleRoutes }}" | Set-Content ./cloud-init.txt
       Get-Content ./cloud-init.txt
     displayName: Update ARM template parameters file
