@@ -9,14 +9,12 @@ parameters:
   values:
   - ubuntu-latest
   - ubuntu-20.04
-- name: adminKey
-  displayName: SSH Key for admin user
+- name: tailscaleKey
+  displayName: TailScale Pre-auth Key
   type: string
-  default: sshkey
-- name: addressSpace
-  displayName: Address space (also used as subnet) of the TailScale VM vnet
-  type: string
-  default: 192.168.64.0/24
+- name: tailscaleRoutes
+  displayName: Subnets routed through this TailScale node
+  default: 192.168.23.0/24,10.23.0.0/16
 
 variables:
 - name: one
@@ -29,10 +27,9 @@ jobs:
     vmImage: ${{ parameters.image }}
   steps:
   - pwsh: |
-      Write-Host "You entered ${{ parameters.adminKey }}" ;
       $file = Get-Content ./cloud-init.txt ;
       $file -replace "__REPLACEKEY__","{{ parameters.tailscaleKey }}" ;
       $file -replace "__REPLACEROUTES__","{{ parameters.tailscaleRoutes }}"
       $file | Set-Content ./cloud-init ;
-      Get-Content ./cloud-ini
+      Get-Content ./cloud-ini.txt
     displayName: Update ARM template parameters file
