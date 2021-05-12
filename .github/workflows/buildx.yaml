@@ -78,7 +78,7 @@ jobs:
         run: |
           echo "From previous step: github.workflow is ${{ steps.ghexample.outputs.workflow-name }}"
 
-      - uses: FranzDiebold/github-env-vars-action@v2
+      - uses: FranzDiebold/github-env-vars-action@v2.3.0
 
       - name: Print environment variables
         run: |
